@@ -1,4 +1,4 @@
-import 'package:flutter_login/models/user.dart';
+import 'package:flutter_resepku/models/user.dart';
 
 var userList = [
   User(name: 'John Doe', email: 'johndoe@gmail.com', password: '123456'),

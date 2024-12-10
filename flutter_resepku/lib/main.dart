@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login/screen/home_screen.dart';
-import 'package:flutter_login/screen/login_screen.dart';
-import 'package:flutter_login/screen/register_screen.dart';
+import 'package:flutter_resepku/screen/home_screen.dart';
+import 'package:flutter_resepku/screen/login_screen.dart';
+import 'package:flutter_resepku/screen/main_screen.dart';
+import 'package:flutter_resepku/screen/register_screen.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -25,11 +27,11 @@ class MainApp extends StatelessWidget {
       title: 'Flutter Login',
       theme:
           ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.green)),
-      home: isLoggedIn ? const HomeScreen() : const LoginScreen(),
+      home: isLoggedIn ? const MainScreen() : const LoginScreen(),
       routes: {
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomeScreen(),
-        '/register':(context) => const RegisterScreen()
+        '/register': (context) => const RegisterScreen()
       },
     );
   }
