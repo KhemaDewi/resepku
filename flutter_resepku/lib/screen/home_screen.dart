@@ -46,11 +46,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             fit: BoxFit.cover,
                           ),
                         ))
-                        //Nama Tempat
-                        
+                        //Nama Makanan
+                       Padding(
+                        padding: const EdgeInsets.only(left: 16, top: 8),
+                        child: Text(
+                          varHome.namaMakanan,
+                          style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        )
                       ],
-                    ),
-                  );
+                    ));
                 },
               )
             ],
