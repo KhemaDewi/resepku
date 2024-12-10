@@ -7,5 +7,5 @@ var homeList = [
       kategori: 'Main',
       waktu: '30menit',
       resep: 'babi potonh',
-      gambar: 'nasii'),
+      gambar: 'images/NasiGoreng.jpg',),
 ];
