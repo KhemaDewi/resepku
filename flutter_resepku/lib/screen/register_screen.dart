@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_login/data/user_data.dart';
-import 'package:flutter_login/models/user.dart';
+import 'package:flutter_resepku/data/user_data.dart';
+import 'package:flutter_resepku/models/user.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatefulWidget {

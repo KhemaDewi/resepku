@@ -1,12 +1,11 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_login/data/user_data.dart';
-import 'package:flutter_login/models/user.dart';
+import 'package:flutter_resepku/data/user_data.dart';
+import 'package:flutter_resepku/models/user.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-  
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -19,7 +18,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-   
     return Scaffold(
       body: Center(
         child: Container(
@@ -52,26 +50,25 @@ class _LoginScreenState extends State<LoginScreen> {
               //Textfield untuk Password
               TextField(
                 controller: _passwordController,
-              obscureText: !_isPasswordVisible,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                border: OutlineInputBorder(),
-                suffixIcon: IconButton(
-                  icon: Icon(
-                    _isPasswordVisible
-                        ? Icons.visibility
-                        : Icons.visibility_off,
+                obscureText: !_isPasswordVisible,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  border: OutlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _isPasswordVisible
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isPasswordVisible = !_isPasswordVisible;
+                      });
+                    },
                   ),
-                  onPressed: () {
-                    setState(() {
-                      _isPasswordVisible = !_isPasswordVisible;
-      });
-      },
                 ),
               ),
-              ),
-                
-                 
+
               // TODO: 3. TOMBOL LOGIN
               const SizedBox(height: 16),
               ElevatedButton(
@@ -84,26 +81,26 @@ class _LoginScreenState extends State<LoginScreen> {
                           await SharedPreferences.getInstance();
                       await prefs.setBool('isLoggedIn', true);
                       await prefs.setString('email', email);
-                      Navigator.pushReplacementNamed(context, '/home');
+                      Navigator.pushReplacementNamed(context, '/main');
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text('Invalid email or password')));
                     }
                   },
                   child: const Text('Login')),
-                  const SizedBox(height: 20),
-                  TextButton(
-                    onPressed: () {
-                    Navigator.pushNamed(context, '/register');
-                    },
-                    child: const Text('Don\'t have an account? Register here',
-                    style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                    ),
+              const SizedBox(height: 20),
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/register');
+                },
+                child: const Text(
+                  'Don\'t have an account? Register here',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
                   ),
-                  ),
-
+                ),
+              ),
             ],
           ),
         ),
