@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/screen/home_screen.dart';
 import 'package:flutter_login/screen/login_screen.dart';
+import 'package:flutter_login/screen/register_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -27,7 +28,8 @@ class MainApp extends StatelessWidget {
       home: isLoggedIn ? const HomeScreen() : const LoginScreen(),
       routes: {
         '/login': (context) => const LoginScreen(),
-        '/home': (context) => const HomeScreen()
+        '/home': (context) => const HomeScreen(),
+        '/register':(context) => const RegisterScreen()
       },
     );
   }

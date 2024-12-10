@@ -1,26 +1,24 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_login/data/user_data.dart';
 import 'package:flutter_login/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-  
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  bool _isPasswordVisible = false;
 
+  bool _isPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
-   
-    return Scaffold(
+     return Scaffold(
       body: Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: 300),
@@ -40,8 +38,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              // TODO: 2. TEXTFIELD EMAIL DAN PASSWORD
+              // TODO: 2. TEXTFIELD USERNAME,EMAIL DAN PASSWORD
               const SizedBox(height: 16),
+              //Textfield untuk username
+              TextField(
+              controller: _usernameController,
+                decoration: const InputDecoration(
+                    border: const OutlineInputBorder(), labelText: 'Username'),
+              ),
+              const SizedBox(height:16),
               //Textfield untuk Email
               TextField(
                 controller: _emailController,
@@ -72,38 +77,39 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
                 
                  
-              // TODO: 3. TOMBOL LOGIN
+              // TODO: 3. TOMBOL REGISTER
               const SizedBox(height: 16),
               ElevatedButton(
                   onPressed: () async {
+                    String username = _usernameController.text;
                     String email = _emailController.text;
                     String password = _passwordController.text;
 
-                    if (validateLogin(email, password)) {
+                    if (validateRegistration( email, password)) {
                       SharedPreferences prefs =
                           await SharedPreferences.getInstance();
-                      await prefs.setBool('isLoggedIn', true);
+                      await prefs.setBool('isRegisteredIn', true);
+                      await prefs.setString('username', username);
                       await prefs.setString('email', email);
                       Navigator.pushReplacementNamed(context, '/home');
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text('Invalid email or password')));
+                          content: Text('Invalid registration')));
                     }
                   },
-                  child: const Text('Login')),
+                  child: const Text('Register')),
                   const SizedBox(height: 20),
                   TextButton(
                     onPressed: () {
-                    Navigator.pushNamed(context, '/register');
+                    Navigator.pushNamed(context, '/login');
                     },
-                    child: const Text('Don\'t have an account? Register here',
+                    child: const Text('Have an account? Login here',
                     style: TextStyle(
                       color: Colors.blue,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   ),
-
             ],
           ),
         ),
@@ -111,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  bool validateLogin(String email, String password) {
+  bool validateRegistration(String email, String password) {
     for (User user in userList) {
       if (user.email == email && user.password == password) {
         return true;
