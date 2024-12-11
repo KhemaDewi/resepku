@@ -55,6 +55,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                           ),
+                          //Nama
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16, top: 4),
+                            child: Text(
+                              varHome.nama,
+                              style: const TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold),
+                            ),
+                          ),
                           //Ikon Waktu
                           Padding(
                             padding: const EdgeInsets.only(left: 16, bottom: 8),
