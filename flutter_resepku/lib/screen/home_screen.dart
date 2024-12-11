@@ -30,34 +30,41 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   Home varHome = homeList[index];
                   return Card(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16)),
-                    margin: const EdgeInsets.all(6),
-                    elevation: 1,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        //Gambar
-                        Expanded(
-                            child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: Image.asset(
-                            varHome.gambar,
-                            fit: BoxFit.cover,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16)),
+                      margin: const EdgeInsets.all(6),
+                      elevation: 1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          //Gambar
+                          Expanded(
+                              child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16),
+                            child: Image.asset(
+                              varHome.gambar,
+                              fit: BoxFit.cover,
+                            ),
+                          )),
+                          //Nama Makanan
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16, top: 8),
+                            child: Text(
+                              varHome.namaMakanan,
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
                           ),
-                        ))
-                        //Nama Makanan
-                       Padding(
-                        padding: const EdgeInsets.only(left: 16, top: 8),
-                        child: Text(
-                          varHome.namaMakanan,
-                          style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold,
+                          //Ikon Waktu
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16, bottom: 8),
+                            child: Text(
+                              varHome.waktu,
+                              style: const TextStyle(fontSize: 12),
+                            ),
                           ),
-                        ),
-                        )
-                      ],
-                    ));
+                        ],
+                      ));
                 },
               )
             ],
