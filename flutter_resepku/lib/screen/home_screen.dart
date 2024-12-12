@@ -14,12 +14,24 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Home'),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: Icon(
+              Icons.restaurant_sharp, // Ikon jam
+              size: 22, // Ukuran ikon
+              color: Colors.black, // Warna ikon, bisa disesuaikan
+            ),
+          ),
+          leadingWidth: 15,
+          title: const Text('Resepku'),
         ),
         body: SafeArea(
             child: SingleChildScrollView(
           child: Column(
             children: [
+              // ----------------------- ATAS -----------------------
+
+              // Dibawahnya Image Utama
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -55,21 +67,40 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontSize: 16, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          //Nama
-                          Padding(
-                            padding: const EdgeInsets.only(left: 16, top: 4),
-                            child: Text(
-                              varHome.nama,
-                              style: const TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
-                            ),
-                          ),
                           //Ikon Waktu
                           Padding(
                             padding: const EdgeInsets.only(left: 16, bottom: 8),
-                            child: Text(
-                              varHome.waktu,
-                              style: const TextStyle(fontSize: 12),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment
+                                  .spaceBetween, // Mengatur jarak antar elemen
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.access_alarm, // Ikon jam
+                                      size: 20, // Ukuran ikon
+                                      color: Colors.grey, // Warna ikon
+                                    ),
+                                    const SizedBox(
+                                        width: 4), // Jarak antara ikon dan teks
+                                    Text(
+                                      varHome.waktu,
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.favorite_border, // Ikon love
+                                    size: 24, // Ukuran ikon
+                                    color: Colors
+                                        .grey, // Warna ikon, bisa disesuaikan
+                                  ),
+                                  onPressed: () {
+                                    // Tambahkan logika untuk aksi tombol
+                                  },
+                                ),
+                              ],
                             ),
                           ),
                         ],

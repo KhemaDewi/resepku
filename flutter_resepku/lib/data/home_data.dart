@@ -13,7 +13,7 @@ var homeList = [
     namaMakanan: 'Rendang',
     nama: 'Sucipto',
     kategori: 'Main Course',
-    waktu: '2 jam',
+    waktu: '5 jam 20 menit',
     resep: '-',
     gambar: 'images/Rendang.jpg',
   ),
