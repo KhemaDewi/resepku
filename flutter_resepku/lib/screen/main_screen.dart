@@ -16,11 +16,11 @@ class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _ScreenOptions = <Widget>[
-    HomeScreen(),
-    SearchScreen(),
-    AddrecipeScreen(),
-    FavoriteScreen(),
-    ProfileScreen()
+    const HomeScreen(),
+    const SearchScreen(),
+    const AddrecipeScreen(),
+    const FavoriteScreen(),
+    const ProfileScreen()
   ];
 
   void _onItemTapped(int index) {
