@@ -1,19 +1,17 @@
 class Home {
-  final String name;
-  final String location;
-  final String description;
-  final String built;
-  final String type;
-  final String imageAsset;
-  final List<String> imageUrls;
+  final String namaMakanan;
+  final String nama;
+  final String kategori;
+  final String waktu;
+  final String resep;
+  final String gambar;
 
   Home({
-    required this.name,
-    required this.location,
-    required this.description,
-    required this.built,
-    required this.type,
-    required this.imageAsset,
-    required this.imageUrls,
+    required this.namaMakanan,
+    required this.nama,
+    required this.kategori,
+    required this.waktu,
+    required this.resep,
+    required this.gambar
   });
 }
