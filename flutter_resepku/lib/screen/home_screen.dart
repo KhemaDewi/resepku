@@ -30,7 +30,23 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             children: [
               // ----------------------- ATAS -----------------------
-
+              Stack(
+              children: [
+                // Image Utama
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.asset('images/utama.jpg',
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      height: 250,
+                    ),
+                  ),
+                ),
+              ],
+            ),
               // Dibawahnya Image Utama
               GridView.builder(
                 shrinkWrap: true,
