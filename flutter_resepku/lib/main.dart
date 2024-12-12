@@ -31,12 +31,8 @@ class MainApp extends StatelessWidget {
       routes: {
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomeScreen(),
-        '/register': (context) => const RegisterScreen(),
- home_screen
+        '/register': (context) => const RegisterScreen(), 
         '/main': (context) => const MainScreen()
-
-        '/main': (context) => const MainScreen(),
- main
       },
     );
   }
