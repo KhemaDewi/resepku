@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           await SharedPreferences.getInstance();
                       await prefs.setBool('isLoggedIn', true);
                       await prefs.setString('email', email);
-                      Navigator.pushReplacementNamed(context, '/main');
+                      Navigator.pushNamed(context, '/main');
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                           content: Text('Invalid email or password')));
