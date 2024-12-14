@@ -13,12 +13,13 @@ class AddrecipeScreen extends StatelessWidget {
           TextButton(onPressed: () {},
            child: Text(
             'Save',
-            style:TextStyle(color: Colors.white),
+            style:TextStyle(color: Colors.black),
           ),
         ),
       ],
     ),
-      body: Padding(
+      body: SingleChildScrollView(
+        child: Padding(
           padding: const EdgeInsets.all(16),
            child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,19 +44,19 @@ class AddrecipeScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Title',
                   hintText: 'Masukkan Nama Makanan',
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 children: [
                   Expanded(
-                    child: DropdownButtonFormField<String>(decoration: InputDecoration(
+                    child: DropdownButtonFormField<String>(decoration: const InputDecoration(
                       labelText: 'Category',
                       border: OutlineInputBorder(),
                     ),
@@ -68,18 +69,18 @@ class AddrecipeScreen extends StatelessWidget {
                     },
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   Expanded(child: Row(
                     children: [
                       Expanded(child: TextField(
                         keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
+                        decoration: const  InputDecoration(
                           labelText: 'Hours',
                           border: OutlineInputBorder(),
                         ),
                       ),
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Expanded(child: TextField(
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
@@ -91,19 +92,19 @@ class AddrecipeScreen extends StatelessWidget {
                   ))
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextField(
                 maxLines: 5,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Ingredient',
                   alignLabelWithHint: true,
                   border: OutlineInputBorder()
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextField(
                 maxLines: 5,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'How to Make',
                   alignLabelWithHint: true,
                   border: OutlineInputBorder(),
@@ -112,6 +113,7 @@ class AddrecipeScreen extends StatelessWidget {
             ],
            ),
            ),
-           );
+           ),
+    );
   }
 }
