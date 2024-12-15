@@ -10,6 +10,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String selectedCategory = "Now"; // Default kategori yang dipilih
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,9 +19,9 @@ class _HomeScreenState extends State<HomeScreen> {
           leading: Padding(
             padding: const EdgeInsets.only(left: 8),
             child: Icon(
-              Icons.restaurant_sharp, // Ikon jam
-              size: 22, // Ukuran ikon
-              color: Colors.black, // Warna ikon, bisa disesuaikan
+              Icons.restaurant_sharp,
+              size: 22,
+              color: Colors.black,
             ),
           ),
           leadingWidth: 15,
@@ -29,9 +31,39 @@ class _HomeScreenState extends State<HomeScreen> {
             child: SingleChildScrollView(
           child: Column(
             children: [
-              // ----------------------- ATAS -----------------------
-
-              // Dibawahnya Image Utama
+              // ----------------------- Gambar Utama -----------------------
+              Stack(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        'images/utama.jpg',
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                        height: 250,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              // ----------------------- ChoiceChips -----------------------
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Wrap(
+                  spacing: 8.0, // Jarak antar ChoiceChip
+                  children: [
+                    _buildChoiceChip("MainCourse"),
+                    _buildChoiceChip("Appetizer"),
+                    _buildChoiceChip("Dessert"),
+                    _buildChoiceChip("Drink"),
+                    _buildChoiceChip("Now"),
+                  ],
+                ),
+              ),
+              // ----------------------- GridView -----------------------
               GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
@@ -71,18 +103,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           Padding(
                             padding: const EdgeInsets.only(left: 16, bottom: 8),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment
-                                  .spaceBetween, // Mengatur jarak antar elemen
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(
                                   children: [
                                     Icon(
-                                      Icons.access_alarm, // Ikon jam
-                                      size: 20, // Ukuran ikon
-                                      color: Colors.grey, // Warna ikon
+                                      Icons.access_alarm,
+                                      size: 20,
+                                      color: Colors.grey,
                                     ),
-                                    const SizedBox(
-                                        width: 4), // Jarak antara ikon dan teks
+                                    const SizedBox(width: 4),
                                     Text(
                                       varHome.waktu,
                                       style: const TextStyle(fontSize: 12),
@@ -91,10 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 IconButton(
                                   icon: Icon(
-                                    Icons.favorite_border, // Ikon love
-                                    size: 24, // Ukuran ikon
-                                    color: Colors
-                                        .grey, // Warna ikon, bisa disesuaikan
+                                    Icons.favorite_border,
+                                    size: 24,
+                                    color: Colors.grey,
                                   ),
                                   onPressed: () {
                                     // Tambahkan logika untuk aksi tombol
@@ -110,5 +140,22 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         )));
+  }
+
+  // Widget untuk ChoiceChip
+  Widget _buildChoiceChip(String label) {
+    return ChoiceChip(
+      label: Text(label),
+      selected: selectedCategory == label,
+      onSelected: (isSelected) {
+        setState(() {
+          selectedCategory = label;
+        });
+      },
+      selectedColor: Colors.blueAccent, // Warna saat terpilih
+      backgroundColor: Colors.grey[200], // Warna saat tidak terpilih
+      labelStyle: TextStyle(
+          color: selectedCategory == label ? Colors.white : Colors.black),
+    );
   }
 }
