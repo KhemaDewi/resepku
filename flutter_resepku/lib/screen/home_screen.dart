@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_resepku/data/home_data.dart';
 import 'package:flutter_resepku/models/home.dart';
+import 'package:flutter_resepku/screen/detail_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -74,6 +75,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   Home varHome = homeList[index];
                   return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  DetailScreen(varHome: varHome)));
+                    },
                     child: Card(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16)),
@@ -102,7 +110,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             //Ikon Waktu
                             Padding(
-                              padding: const EdgeInsets.only(left: 16, bottom: 8),
+                              padding:
+                                  const EdgeInsets.only(left: 16, bottom: 8),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

@@ -9,58 +9,62 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
+        body: SafeArea(
+            child: SingleChildScrollView(
+      child: Column(
+        children: [
+          // -------------------- Atas --------------------
+          Stack(
             children: [
-              // -------------------- Atas --------------------
-              Stack(
-                children: [
-                  // Image Utama
-                  Padding(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Image.asset(
-                      varHome.gambar,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: 250,
-                    ),
+              // Image Utama
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.asset(
+                    varHome.gambar,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: 250,
                   ),
-                  ),
-                  // Tombol Back
-                  Container(
-                    margin: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.5),
-                      shape: BoxShape.circle
-                    ),
-                    child: IconButton(
-                      onPressed: () {}, 
-                      icon: const Icon(Icons.arrow_back)),
-                  )
-                ],
+                ),
               ),
-              // Dibawah Image Utama
-              Padding(padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: [
-                  // Judul
-                  Text(
-                    varHome.namaMakanan,
-                    style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  // Info Lainnya
-                  
-                ],
-              ),
+              // Tombol Back
+              Container(
+                margin: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.5),
+                    shape: BoxShape.circle),
+                child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(Icons.arrow_back)),
               )
-
-              // -------------------- Bawah --------------------
             ],
           ),
-        ))
-    );
+          // Dibawah Image Utama
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                // Judul
+                Text(
+                  varHome.namaMakanan,
+                  style: const TextStyle(
+                      fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                // Info Lainnya
+                 Row(children: [
+                  
+                 ],)
+              ],
+            ),
+          )
+
+          // -------------------- Bawah --------------------
+        ],
+      ),
+    )));
   }
 }
