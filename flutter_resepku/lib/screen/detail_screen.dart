@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_resepku/models/home.dart';
-import 'package:flutter_resepku/screen/home_screen.dart';
 
 class DetailScreen extends StatelessWidget {
   final Home varHome;
@@ -55,22 +54,38 @@ class DetailScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              const SizedBox(height: 16),
               // Info Lainnya
-              SizedBox(height: 4),
-              Text(
-                varHome.nama,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.grey[600],
-                ),
+              Row(
+                children: [
+                  SizedBox(width: 4),
+                  Text(
+                    "oleh",
+                    style: TextStyle(fontSize: 14),
+                  ),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  Text(
+                    varHome.nama,
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[600],
+                    ),
+                  ),
+                ],
               ),
-              SizedBox(height: 16),
+              Row(
+                children: [
+                  SizedBox(height: 16),
+                ],
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.category, color: Colors.grey[600]),
+                      Icon(Icons.menu_book_rounded, color: Colors.grey[600]),
                       SizedBox(width: 8),
                       Text(
                         varHome.kategori,
@@ -96,42 +111,65 @@ class DetailScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 16),
-              Text(
-                "Recipe ⚒",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                children: [
+                  SizedBox(height: 16),
+                ],
               ),
-              SizedBox(height: 8),
-              Text(
-                "Ingredients",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+              // Garis Pembatas
+              Divider(
+                color: Colors.grey[400],
+                thickness: 1,
               ),
-              SizedBox(height: 8),
-              Text("1. 1/4 tsp Body"),
-              Text("2. 75 ml Since"),
-              Text("3. 1 cups and"),
-              Text("4. 2 post."),
-              Text("5. 2 tsp question"),
-              SizedBox(height: 16),
-              Text(
-                "How to Make",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                children: [
+                  SizedBox(height: 16),
+                ],
               ),
-              SizedBox(height: 8),
-              Text("1. Body text for a post."),
-              Text("2. Since it's a social app, sometimes it's a hot take"),
-              Text("3. and sometimes it's a question."),
-              Text("4. Body text for a post."),
-              Text("5. and sometimes it's a question."),
+              Row(
+                children: [
+                  Text(
+                    "Recipe",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Icon(Icons.restaurant, color: Colors.grey[600]),
+                ],
+              ),
+              Row(
+                children: [
+                  SizedBox(height: 8),
+                ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    varHome.resep,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  SizedBox(height: 8),
+                ],
+              ),
+              Row(
+                children: [
+                  Text(
+                    varHome.caraMasak,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
