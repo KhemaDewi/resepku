@@ -109,7 +109,7 @@ class _DetailScreenState extends State<DetailScreen> {
                   )
                 ],
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 2),
               // Info Lainnya
               Row(
                 children: [
@@ -210,6 +210,25 @@ class _DetailScreenState extends State<DetailScreen> {
                 ],
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("1. 1/4 tsp Body", textAlign: TextAlign.justify),
+                      SizedBox(height: 8),
+                      Text("2. 75 ml Since", textAlign: TextAlign.justify),
+                      SizedBox(height: 8),
+                      Text("3. 1 cups and", textAlign: TextAlign.justify),
+                      SizedBox(height: 8),
+                      Text("4. 2 post.", textAlign: TextAlign.justify),
+                      SizedBox(height: 8),
+                      Text("5. 2 tsp question", textAlign: TextAlign.justify),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
                 children: [
                   SizedBox(height: 8),
                 ],
@@ -221,6 +240,33 @@ class _DetailScreenState extends State<DetailScreen> {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text("1. Body text for a post.",
+                            textAlign: TextAlign.justify),
+                        SizedBox(height: 8),
+                        Text(
+                            "2. Since it's a social app, sometimes it's a hot take",
+                            textAlign: TextAlign.justify),
+                        SizedBox(height: 8),
+                        Text("3. and sometimes it's a question.",
+                            textAlign: TextAlign.justify),
+                        SizedBox(height: 8),
+                        Text("4. Body text for a post.",
+                            textAlign: TextAlign.justify),
+                        SizedBox(height: 8),
+                        Text("5. and sometimes it's a question.",
+                            textAlign: TextAlign.justify),
+                      ],
                     ),
                   ),
                 ],
