@@ -1,9 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_resepku/models/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class DetailScreen extends StatelessWidget {
+class DetailScreen extends StatefulWidget {
   final Home varHome;
   const DetailScreen({super.key, required this.varHome});
+
+  @override
+  State<DetailScreen> createState() => _DetailScreenState();
+}
+
+class _DetailScreenState extends State<DetailScreen> {
+  bool _isFavorite = false;
+
+  Future<void> _loadFavoriteStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> favoriteHomes = prefs.getStringList('favoriteHomes') ?? [];
+    setState(() {
+      _isFavorite = favoriteHomes.contains(widget.varHome.nama);
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadFavoriteStatus();
+  }
+
+  Future<void> _toggleFavorite() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> favoriteHomes = prefs.getStringList('favoriteHomes') ?? [];
+
+    setState(() {
+      if (_isFavorite) {
+        favoriteHomes.remove(widget.varHome.nama);
+        _isFavorite = false;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('${widget.varHome.nama} removed from favorites')));
+      } else {
+        favoriteHomes.add(widget.varHome.nama);
+        _isFavorite = true;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('${widget.varHome.nama} added to favorites')));
+      }
+    });
+
+    await prefs.setStringList('favoriteHomes', favoriteHomes);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +64,7 @@ class DetailScreen extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: Image.asset(
-                  varHome.gambar,
+                  widget.varHome.gambar,
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: 250,
@@ -47,12 +91,23 @@ class DetailScreen extends StatelessWidget {
           child: Column(
             children: [
               // Judul
-              Text(
-                varHome.namaMakanan,
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.varHome.namaMakanan,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: _toggleFavorite,
+                    icon: Icon(
+                        _isFavorite ? Icons.favorite : Icons.favorite_border),
+                    color: _isFavorite ? Colors.red : null,
+                  )
+                ],
               ),
               const SizedBox(height: 16),
               // Info Lainnya
@@ -67,7 +122,7 @@ class DetailScreen extends StatelessWidget {
                     width: 6,
                   ),
                   Text(
-                    varHome.nama,
+                    widget.varHome.nama,
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.grey[600],
@@ -88,7 +143,7 @@ class DetailScreen extends StatelessWidget {
                       Icon(Icons.menu_book_rounded, color: Colors.grey[600]),
                       SizedBox(width: 8),
                       Text(
-                        varHome.kategori,
+                        widget.varHome.kategori,
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey[600],
@@ -101,7 +156,7 @@ class DetailScreen extends StatelessWidget {
                       Icon(Icons.timer, color: Colors.grey[600]),
                       SizedBox(width: 8),
                       Text(
-                        varHome.waktu,
+                        widget.varHome.waktu,
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.grey[600],
@@ -146,7 +201,7 @@ class DetailScreen extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    varHome.resep,
+                    widget.varHome.resep,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -162,7 +217,7 @@ class DetailScreen extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    varHome.caraMasak,
+                    widget.varHome.caraMasak,
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
