@@ -6,7 +6,8 @@ var homeList = [
     nama: 'Budi',
     kategori: 'Main Course',
     waktu: '30 menit',
-    resep: '-',
+    resep: 'Ingredient',
+    caraMasak: 'How to Make',
     gambar: 'images/NasiGoreng.jpg',
   ),
   Home(
@@ -14,7 +15,8 @@ var homeList = [
     nama: 'Sucipto',
     kategori: 'Main Course',
     waktu: '5 jam 20 menit',
-    resep: '-',
+    resep: 'Ingredient',
+    caraMasak: 'How to Make',
     gambar: 'images/Rendang.jpg',
   ),
   Home(
@@ -22,7 +24,8 @@ var homeList = [
     nama: 'Niko',
     kategori: 'Appetizer',
     waktu: '20 menit',
-    resep: '-',
+    resep: 'Ingredient',
+    caraMasak: 'How to Make',
     gambar: 'images/RisolMayo.jpg',
   ),
   Home(
@@ -30,7 +33,8 @@ var homeList = [
     nama: 'Crysostomus',
     kategori: 'Dessert',
     waktu: '45 menit',
-    resep: '-',
+    resep: 'Ingredient',
+    caraMasak: 'How to Make',
     gambar: 'images/NewyorkCheesecake.jpg',
   )
 ];

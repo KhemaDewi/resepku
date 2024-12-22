@@ -5,6 +5,7 @@ class Home {
   final String waktu;
   final String resep;
   final String gambar;
+   final String caraMasak;
 
   Home({
     required this.namaMakanan,
@@ -12,6 +13,7 @@ class Home {
     required this.kategori,
     required this.waktu,
     required this.resep,
-    required this.gambar
+    required this.gambar,
+    required this.caraMasak
   });
 }
