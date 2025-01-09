@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_resepku/data/home_data.dart';
 import 'package:flutter_resepku/models/home.dart';
+
 import 'package:flutter_resepku/screen/detail_screen.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+  
+  get varHome => null;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -13,23 +19,60 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String selectedCategory = "Now"; // Default kategori yang dipilih
 
+  bool _isFavorite = false;
+
+  Future<void> _loadFavoriteStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> favoriteHomes = prefs.getStringList('favoriteHomes') ?? [];
+    setState(() {
+      _isFavorite = favoriteHomes.contains(widget.varHome.namaMakanan);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFavoriteStatus();
+  }
+
+  Future<void> _toggleFavorite() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> favoriteHomes = prefs.getStringList('favoriteHomes') ?? [];
+
+    setState((){
+      if(_isFavorite){
+        favoriteHomes.remove(widget.varHome.namaMakanan);
+        _isFavorite = false;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('${widget.varHome.namaMakanan} removed from favorites')));
+      } else {
+        favoriteHomes.add(widget.varHome.namaMakanan);
+        _isFavorite = true;
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('${widget.varHome.namaMakanan} added to favorites')));
+      }
+    });
+
+    await prefs.setStringList('favoriteHomes', favoriteHomes);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: Icon(
-              Icons.restaurant_sharp,
-              size: 22,
-              color: Colors.black,
-            ),
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 8),
+          child: Icon(
+            Icons.restaurant_sharp,
+            size: 22,
+            color: Colors.black,
           ),
-          leadingWidth: 15,
-          title: const Text('Resepku'),
         ),
-        body: SafeArea(
-            child: SingleChildScrollView(
+        leadingWidth: 15,
+        title: const Text('Resepku'),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               // ----------------------- Gambar Utama -----------------------
@@ -69,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, crossAxisSpacing: 8, mainAxisSpacing: 8),
+                  crossAxisCount: 2, crossAxisSpacing: 8, mainAxisSpacing: 8),
                 padding: const EdgeInsets.all(8),
                 itemCount: homeList.length,
                 itemBuilder: (context, index) {
@@ -83,31 +126,24 @@ class _HomeScreenState extends State<HomeScreen> {
                                   DetailScreen(varHome: varHome)));
                     },
                     child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16)),
-                        margin: const EdgeInsets.all(6),
-                        elevation: 1,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            //Gambar
-                            Expanded(
-                                child: ClipRRect(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      margin: const EdgeInsets.all(6),
+                      elevation: 1,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          //Gambar
+                          Expanded(
+                            child: ClipRRect(
                               borderRadius: BorderRadius.circular(16),
                               child: Image.asset(
                                 varHome.gambar,
                                 fit: BoxFit.cover,
                               ),
-                            )),
-                            //Nama Makanan
-                            Padding(
-                              padding: const EdgeInsets.only(left: 16, top: 8),
-                              child: Text(
-                                varHome.namaMakanan,
-                                style: const TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.bold),
-                              ),
                             ),
+
                             //Ikon Waktu
                             Padding(
                               padding:
@@ -134,23 +170,60 @@ class _HomeScreenState extends State<HomeScreen> {
                                     icon: Icon(
                                       Icons.favorite_border,
                                       size: 24,
+
+                          ),
+                          //Nama Makanan
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16, top: 8),
+                            child: Text(
+                              varHome.namaMakanan,
+                              style: const TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          //Ikon Waktu
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16, bottom: 8),
+                            child: Row(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.access_alarm,
+                                      size: 20,
+
                                       color: Colors.grey,
                                     ),
-                                    onPressed: () {
-                                      // Tambahkan logika untuk aksi tombol
-                                    },
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      varHome.waktu,
+                                      style: const TextStyle(fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                                IconButton(
+                                  onPressed: _toggleFavorite,
+                                  icon: Icon(
+                                    _isFavorite ? Icons.favorite : Icons.favorite_border
                                   ),
-                                ],
-                              ),
+                                  color: _isFavorite ? Colors.red : null,
+                                ),
+                              ],
                             ),
-                          ],
-                        )),
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 },
-              )
+              ),
             ],
           ),
-        )));
+        ),
+      ),
+    );
   }
 
   // Widget untuk ChoiceChip
