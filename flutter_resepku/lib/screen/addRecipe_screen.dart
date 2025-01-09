@@ -8,8 +8,19 @@ class AddrecipeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AddRecipe'),
+        title: const Text('Add Recipe'),
         actions: [
+
+          TextButton(
+            onPressed: () {},
+            child: Text(
+              'Save',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+
           TextButton(onPressed: () {},
            child: Text(
             'Save',
@@ -18,16 +29,17 @@ class AddrecipeScreen extends StatelessWidget {
         ),
       ],
     ),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
-           child: Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    // untuk aadd photo
+                    // untuk add photo
                   },
                   child: Container(
                     width: 120,
@@ -44,6 +56,27 @@ class AddrecipeScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
+              SizedBox(height: 24),
+              // Title Field
+              Row(
+                children: [
+                  Icon(
+                    Icons.note_alt_outlined,
+                    size: 20,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: TextField(
+                      decoration: _buildInputDecoration('Title', 'Masukkan nama makanan', false),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              // Category and Time Row
+
               const SizedBox(height: 24),
               TextField(
                 decoration: const InputDecoration(
@@ -53,9 +86,53 @@ class AddrecipeScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
+
               Row(
                 children: [
+                  Icon(
+                    Icons.category_outlined,
+                    size: 20,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(width: 8),
                   Expanded(
+
+                    child: DropdownButtonFormField<String>(
+                      decoration: _buildInputDecoration('Category', null, false),
+                      items: ['Main', 'Appetizer', 'Dessert', 'Drink']
+                          .map((category) => DropdownMenuItem(
+                                value: category,
+                                child: Text(category),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        //untuk category selection
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Icon(
+                    Icons.timer_outlined,
+                    size: 20,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            keyboardType: TextInputType.number,
+                            decoration: _buildInputDecoration('Hours', null, false),
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: TextField(
+                            keyboardType: TextInputType.number,
+                            decoration: _buildInputDecoration('Minutes', null, false),
+                          ),
+
                     child: DropdownButtonFormField<String>(decoration: const InputDecoration(
                       labelText: 'Category',
                       border: OutlineInputBorder(),
@@ -86,34 +163,141 @@ class AddrecipeScreen extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: 'Minutes',
                           border: OutlineInputBorder(),
+
                         ),
-                      ))
-                    ],
-                  ))
+                      ],
+                    ),
+                  ),
                 ],
               ),
+
+              SizedBox(height: 16),
+              // Section Title for Ingredients
+              Row(
+                children: [
+                  Icon(
+                    Icons.restaurant_menu_outlined,
+                    size: 20,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(width: 8),
+                  Text(
+                    'Recipe',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              // Ingredients Field
+              TextField(
+                maxLines: 5,
+                decoration: _buildInputDecoration('Ingredients', null, true).copyWith(
+
               const SizedBox(height: 16),
               TextField(
                 maxLines: 5,
                 decoration: const InputDecoration(
                   labelText: 'Ingredient',
+
                   alignLabelWithHint: true,
-                  border: OutlineInputBorder()
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
               ),
               const SizedBox(height: 16),
               TextField(
                 maxLines: 5,
+
+                decoration: _buildInputDecoration('How to Make', null, true).copyWith(
+
                 decoration: const InputDecoration(
                   labelText: 'How to Make',
+
                   alignLabelWithHint: true,
-                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
               ),
             ],
+
+          ),
+        ),
+      ),
+    );
+  }
+
+  InputDecoration _buildInputDecoration(String label, String? hint, bool isMultiline) {
+    return isMultiline
+        ? InputDecoration(
+            labelText: label,
+            hintText: hint,
+            labelStyle: TextStyle(
+              color: Colors.black54,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+            hintStyle: TextStyle(
+              color: Colors.black26,
+              fontSize: 14,
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                color: Colors.grey.shade300,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                color: Colors.grey.shade300,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                color: Colors.grey.shade400,
+              ),
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          )
+        : InputDecoration(
+            labelText: label,
+            hintText: hint,
+            labelStyle: TextStyle(
+              color: Colors.black54,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+            hintStyle: TextStyle(
+              color: Colors.black26,
+              fontSize: 14,
+            ),
+            border: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.grey.shade300,
+              ),
+            ),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.grey.shade300,
+              ),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.grey.shade400,
+              ),
+            ),
+            contentPadding: EdgeInsets.symmetric(vertical: 8),
+          );
+
            ),
            ),
            ),
     );
+
   }
 }
