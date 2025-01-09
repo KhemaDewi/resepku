@@ -8,25 +8,27 @@ class AddrecipeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('AddRecipe'),
+        title: const Text('Add Recipe'),
         actions: [
-          TextButton(onPressed: () {},
-           child: Text(
-            'Save',
-            style:TextStyle(color: Colors.white),
+          TextButton(
+            onPressed: () {},
+            child: Text(
+              'Save',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
-        ),
-      ],
-    ),
-      body: Padding(
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
           padding: const EdgeInsets.all(16),
-           child: Column(
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
                 child: GestureDetector(
                   onTap: () {
-                    // untuk aadd photo
+                    // untuk add photo
                   },
                   child: Container(
                     width: 120,
@@ -44,74 +46,182 @@ class AddrecipeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 24),
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Title',
-                  hintText: 'Masukkan Nama Makanan',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16),
+              // Title Field
               Row(
                 children: [
+                  Icon(
+                    Icons.note_alt_outlined,
+                    size: 20,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(width: 8),
                   Expanded(
-                    child: DropdownButtonFormField<String>(decoration: InputDecoration(
-                      labelText: 'Category',
-                      border: OutlineInputBorder(),
-                    ),
-                    items: ['Main','Appetizer','Dessert','Drink'].map((Category) => DropdownMenuItem(
-                      value:Category,child: Text(Category),
-                    ))
-                    .toList(),
-                    onChanged: (value) {
-                      //untuk catgeory selection
-                    },
+                    child: TextField(
+                      decoration: _buildInputDecoration('Title', 'Masukkan nama makanan', false),
                     ),
                   ),
-                  SizedBox(width: 16),
-                  Expanded(child: Row(
-                    children: [
-                      Expanded(child: TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: 'Hours',
-                          border: OutlineInputBorder(),
-                        ),
-                      ),
-                      ),
-                      SizedBox(width: 8),
-                      Expanded(child: TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: 'Minutes',
-                          border: OutlineInputBorder(),
-                        ),
-                      ))
-                    ],
-                  ))
                 ],
               ),
               SizedBox(height: 16),
+              // Category and Time Row
+              Row(
+                children: [
+                  Icon(
+                    Icons.category_outlined,
+                    size: 20,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: DropdownButtonFormField<String>(
+                      decoration: _buildInputDecoration('Category', null, false),
+                      items: ['Main', 'Appetizer', 'Dessert', 'Drink']
+                          .map((category) => DropdownMenuItem(
+                                value: category,
+                                child: Text(category),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        //untuk category selection
+                      },
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Icon(
+                    Icons.timer_outlined,
+                    size: 20,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(width: 8),
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            keyboardType: TextInputType.number,
+                            decoration: _buildInputDecoration('Hours', null, false),
+                          ),
+                        ),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: TextField(
+                            keyboardType: TextInputType.number,
+                            decoration: _buildInputDecoration('Minutes', null, false),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              // Section Title for Ingredients
+              Row(
+                children: [
+                  Icon(
+                    Icons.restaurant_menu_outlined,
+                    size: 20,
+                    color: Colors.black54,
+                  ),
+                  SizedBox(width: 8),
+                  Text(
+                    'Recipe',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 8),
+              // Ingredients Field
               TextField(
                 maxLines: 5,
-                decoration: InputDecoration(
-                  labelText: 'Ingredient',
+                decoration: _buildInputDecoration('Ingredients', null, true).copyWith(
                   alignLabelWithHint: true,
-                  border: OutlineInputBorder()
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
               ),
               SizedBox(height: 16),
               TextField(
                 maxLines: 5,
-                decoration: InputDecoration(
-                  labelText: 'How to Make',
+                decoration: _buildInputDecoration('How to Make', null, true).copyWith(
                   alignLabelWithHint: true,
-                  border: OutlineInputBorder(),
+                  filled: true,
+                  fillColor: Colors.white,
                 ),
               ),
             ],
-           ),
-           ),
-           );
+          ),
+        ),
+      ),
+    );
+  }
+
+  InputDecoration _buildInputDecoration(String label, String? hint, bool isMultiline) {
+    return isMultiline
+        ? InputDecoration(
+            labelText: label,
+            hintText: hint,
+            labelStyle: TextStyle(
+              color: Colors.black54,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+            hintStyle: TextStyle(
+              color: Colors.black26,
+              fontSize: 14,
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                color: Colors.grey.shade300,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                color: Colors.grey.shade300,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(12),
+              borderSide: BorderSide(
+                color: Colors.grey.shade400,
+              ),
+            ),
+            contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          )
+        : InputDecoration(
+            labelText: label,
+            hintText: hint,
+            labelStyle: TextStyle(
+              color: Colors.black54,
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+            ),
+            hintStyle: TextStyle(
+              color: Colors.black26,
+              fontSize: 14,
+            ),
+            border: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.grey.shade300,
+              ),
+            ),
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.grey.shade300,
+              ),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.grey.shade400,
+              ),
+            ),
+            contentPadding: EdgeInsets.symmetric(vertical: 8),
+          );
   }
 }
