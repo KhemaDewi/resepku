@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_resepku/data/home_data.dart';
 import 'package:flutter_resepku/models/home.dart';
+
+import 'package:flutter_resepku/screen/detail_screen.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -114,6 +118,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   Home varHome = homeList[index];
                   return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  DetailScreen(varHome: varHome)));
+                    },
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
@@ -132,6 +143,34 @@ class _HomeScreenState extends State<HomeScreen> {
                                 fit: BoxFit.cover,
                               ),
                             ),
+
+                            //Ikon Waktu
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 16, bottom: 8),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.access_alarm,
+                                        size: 20,
+                                        color: Colors.grey,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        varHome.waktu,
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.favorite_border,
+                                      size: 24,
+
                           ),
                           //Nama Makanan
                           Padding(
@@ -154,6 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Icon(
                                       Icons.access_alarm,
                                       size: 20,
+
                                       color: Colors.grey,
                                     ),
                                     const SizedBox(width: 4),
