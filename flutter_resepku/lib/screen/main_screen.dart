@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_resepku/screen/addRecipe_screen.dart';
+import 'package:flutter_resepku/screen/editprofil_screen.dart';
 import 'package:flutter_resepku/screen/favorite_screen.dart';
 import 'package:flutter_resepku/screen/home_screen.dart';
 import 'package:flutter_resepku/screen/profile_screen.dart';
@@ -20,7 +21,8 @@ class _MainScreenState extends State<MainScreen> {
     const SearchScreen(),
     const AddrecipeScreen(),
     const FavoriteScreen(),
-    const ProfileScreen()
+    const ProfileScreen(),
+    const EditprofilScreen()
   ];
 
   void _onItemTapped(int index) {

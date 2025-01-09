@@ -32,7 +32,7 @@ class MainApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomeScreen(),
         '/register': (context) => const RegisterScreen(),
-        '/main': (context) => const MainScreen(),
+        '/main': (context) => const MainScreen()
       },
     );
   }

@@ -10,6 +10,7 @@ class AddrecipeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Add Recipe'),
         actions: [
+
           TextButton(
             onPressed: () {},
             child: Text(
@@ -19,6 +20,16 @@ class AddrecipeScreen extends StatelessWidget {
           ),
         ],
       ),
+
+          TextButton(onPressed: () {},
+           child: Text(
+            'Save',
+            style:TextStyle(color: Colors.black),
+          ),
+        ),
+      ],
+    ),
+
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16),
@@ -45,6 +56,7 @@ class AddrecipeScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
               SizedBox(height: 24),
               // Title Field
               Row(
@@ -64,6 +76,17 @@ class AddrecipeScreen extends StatelessWidget {
               ),
               SizedBox(height: 16),
               // Category and Time Row
+
+              const SizedBox(height: 24),
+              TextField(
+                decoration: const InputDecoration(
+                  labelText: 'Title',
+                  hintText: 'Masukkan Nama Makanan',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+              const SizedBox(height: 16),
+
               Row(
                 children: [
                   Icon(
@@ -73,6 +96,7 @@ class AddrecipeScreen extends StatelessWidget {
                   ),
                   SizedBox(width: 8),
                   Expanded(
+
                     child: DropdownButtonFormField<String>(
                       decoration: _buildInputDecoration('Category', null, false),
                       items: ['Main', 'Appetizer', 'Dessert', 'Drink']
@@ -108,12 +132,45 @@ class AddrecipeScreen extends StatelessWidget {
                             keyboardType: TextInputType.number,
                             decoration: _buildInputDecoration('Minutes', null, false),
                           ),
+
+                    child: DropdownButtonFormField<String>(decoration: const InputDecoration(
+                      labelText: 'Category',
+                      border: OutlineInputBorder(),
+                    ),
+                    items: ['Main','Appetizer','Dessert','Drink'].map((Category) => DropdownMenuItem(
+                      value:Category,child: Text(Category),
+                    ))
+                    .toList(),
+                    onChanged: (value) {
+                      //untuk catgeory selection
+                    },
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(child: Row(
+                    children: [
+                      Expanded(child: TextField(
+                        keyboardType: TextInputType.number,
+                        decoration: const  InputDecoration(
+                          labelText: 'Hours',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      ),
+                      const SizedBox(width: 8),
+                      Expanded(child: TextField(
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          labelText: 'Minutes',
+                          border: OutlineInputBorder(),
+
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
+
               SizedBox(height: 16),
               // Section Title for Ingredients
               Row(
@@ -139,21 +196,34 @@ class AddrecipeScreen extends StatelessWidget {
               TextField(
                 maxLines: 5,
                 decoration: _buildInputDecoration('Ingredients', null, true).copyWith(
+
+              const SizedBox(height: 16),
+              TextField(
+                maxLines: 5,
+                decoration: const InputDecoration(
+                  labelText: 'Ingredient',
+
                   alignLabelWithHint: true,
                   filled: true,
                   fillColor: Colors.white,
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               TextField(
                 maxLines: 5,
+
                 decoration: _buildInputDecoration('How to Make', null, true).copyWith(
+
+                decoration: const InputDecoration(
+                  labelText: 'How to Make',
+
                   alignLabelWithHint: true,
                   filled: true,
                   fillColor: Colors.white,
                 ),
               ),
             ],
+
           ),
         ),
       ),
@@ -223,5 +293,11 @@ class AddrecipeScreen extends StatelessWidget {
             ),
             contentPadding: EdgeInsets.symmetric(vertical: 8),
           );
+
+           ),
+           ),
+           ),
+    );
+
   }
 }
