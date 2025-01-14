@@ -10,15 +10,20 @@ class AddrecipeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Add Recipe'),
         actions: [
-          TextButton(
+          OutlinedButton(
             onPressed: () {
               // Save action
             },
+            style: OutlinedButton.styleFrom(
+              side: const BorderSide(color: Colors.black),
+              backgroundColor: Colors.black,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            ),
             child: const Text(
               'Save',
               style: TextStyle(color: Colors.white),
             ),
-          ),
+          )
         ],
       ),
       body: SingleChildScrollView(

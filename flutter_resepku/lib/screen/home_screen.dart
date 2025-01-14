@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_resepku/data/home_data.dart';
 import 'package:flutter_resepku/models/home.dart';
 import 'package:flutter_resepku/screen/detail_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,24 +14,58 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   String selectedCategory = "Now"; // Default kategori yang dipilih
+  List<String> favoriteHomes = []; // Daftar nama makanan favorit
+
+  @override
+  void initState() {
+    super.initState();
+    _loadFavoriteStatus();
+  }
+
+  /// Memuat status favorit dari SharedPreferences
+  Future<void> _loadFavoriteStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      favoriteHomes = prefs.getStringList('favoriteHomes') ?? [];
+    });
+  }
+
+  /// Menambahkan atau menghapus makanan dari favorit
+  Future<void> _toggleFavorite(Home varHome) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      if (favoriteHomes.contains(varHome.namaMakanan)) {
+        favoriteHomes.remove(varHome.namaMakanan);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('${varHome.namaMakanan} removed from favorites'),
+        ));
+      } else {
+        favoriteHomes.add(varHome.namaMakanan);
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('${varHome.namaMakanan} added to favorites'),
+        ));
+      }
+    });
+    await prefs.setStringList('favoriteHomes', favoriteHomes);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: Padding(
-            padding: const EdgeInsets.only(left: 8),
-            child: Icon(
-              Icons.restaurant_sharp,
-              size: 22,
-              color: Colors.black,
-            ),
+      appBar: AppBar(
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 8),
+          child: Icon(
+            Icons.restaurant_sharp,
+            size: 22,
+            color: Colors.black,
           ),
-          leadingWidth: 15,
-          title: const Text('Resepku'),
         ),
-        body: SafeArea(
-            child: SingleChildScrollView(
+        leadingWidth: 15,
+        title: const Text('Resepku'),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: Column(
             children: [
               // ----------------------- Gambar Utama -----------------------
@@ -65,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               // ----------------------- GridView -----------------------
-              GridView.builder(
+          GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -150,7 +186,9 @@ class _HomeScreenState extends State<HomeScreen> {
               )
             ],
           ),
-        )));
+        ),
+      ),
+    );
   }
 
   // Widget untuk ChoiceChip

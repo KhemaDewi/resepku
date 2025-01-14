@@ -39,6 +39,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
               ),
+              const SizedBox(height: 16),
+              const Text(
+                'Sign Up',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
               // TODO: 2. TEXTFIELD USERNAME,EMAIL DAN PASSWORD
               const SizedBox(height: 16),
               //Textfield untuk username
@@ -98,15 +106,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           content: Text('Invalid registration')));
                     }
                   },
-                  child: const Text('Register')),
+                  child: const Text('SIGN UP')),
                   const SizedBox(height: 20),
                   TextButton(
                     onPressed: () {
                     Navigator.pushNamed(context, '/login');
                     },
-                    child: const Text('Have an account? Login here',
+                    child: const Text('SIGN IN',
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: Colors.grey,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

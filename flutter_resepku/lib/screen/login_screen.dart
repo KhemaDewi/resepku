@@ -38,6 +38,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
+              const SizedBox(height: 16),
+              const Text(
+                'Sign In',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              
               // TODO: 2. TEXTFIELD EMAIL DAN PASSWORD
               const SizedBox(height: 16),
               //Textfield untuk Email
@@ -87,16 +96,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           content: Text('Invalid email or password')));
                     }
                   },
-                  child: const Text('Login')),
+                  child: const Text('SIGN IN')),
               const SizedBox(height: 20),
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/register');
                 },
                 child: const Text(
-                  'Don\'t have an account? Register here',
+                  'SIGN UP?',
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: Colors.grey,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
