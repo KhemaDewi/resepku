@@ -50,6 +50,15 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             ),
             title: Text(varHome.namaMakanan),
             subtitle: Text(varHome.waktu),
+            trailing: IconButton(
+              icon: Icon(
+                Icons.favorite,
+                color: Colors.red,
+              ),
+              onPressed: () {
+                // Tindakan saat ikon love diklik (misalnya menambah ke daftar favorit lagi atau menghapusnya)
+              },
+            ),
           );
         },
       ),
