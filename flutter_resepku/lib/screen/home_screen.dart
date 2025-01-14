@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_resepku/data/home_data.dart';
 import 'package:flutter_resepku/models/home.dart';
 import 'package:flutter_resepku/screen/detail_screen.dart';
+import 'package:flutter_resepku/screen/favorite_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String selectedCategory = "Now"; // Default kategori yang dipilih
+  String selectedCategory = "Now"; // Kategori yang dipilih secara default
   List<String> favoriteHomes = []; // Daftar nama makanan favorit
 
   @override
@@ -37,12 +37,12 @@ class _HomeScreenState extends State<HomeScreen> {
       if (favoriteHomes.contains(varHome.namaMakanan)) {
         favoriteHomes.remove(varHome.namaMakanan);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('${varHome.namaMakanan} removed from favorites'),
+          content: Text('${varHome.namaMakanan} dihapus dari favorit'),
         ));
       } else {
         favoriteHomes.add(varHome.namaMakanan);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('${varHome.namaMakanan} added to favorites'),
+          content: Text('${varHome.namaMakanan} ditambahkan ke favorit'),
         ));
       }
     });
@@ -63,6 +63,17 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         leadingWidth: 15,
         title: const Text('Resepku'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.favorite),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FavoriteScreen()),
+              );
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -72,8 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Stack(
                 children: [
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(16),
                       child: Image.asset(
@@ -101,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               // ----------------------- GridView -----------------------
-          GridView.builder(
+              GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -110,13 +120,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemCount: homeList.length,
                 itemBuilder: (context, index) {
                   Home varHome = homeList[index];
+                  bool isFavorite = favoriteHomes.contains(varHome.namaMakanan);
                   return InkWell(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  DetailScreen(varHome: varHome)));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailScreen(varHome: varHome),
+                        ),
+                      );
                     },
                     child: Card(
                         shape: RoundedRectangleBorder(
@@ -126,16 +138,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-                            //Gambar
+                            // Gambar
                             Expanded(
-                                child: ClipRRect(
-                              borderRadius: BorderRadius.circular(16),
-                              child: Image.asset(
-                                varHome.gambar,
-                                fit: BoxFit.cover,
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: Image.asset(
+                                  varHome.gambar,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                            )),
-                            //Nama Makanan
+                            ),
+                            // Nama Makanan
                             Padding(
                               padding: const EdgeInsets.only(left: 16, top: 8),
                               child: Text(
@@ -144,17 +157,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                     fontSize: 16, fontWeight: FontWeight.bold),
                               ),
                             ),
-                            //Ikon Waktu
+                            // Ikon Waktu
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 16, bottom: 8),
+                              padding: const EdgeInsets.only(left: 16, bottom: 8),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.access_alarm,
                                         size: 20,
                                         color: Colors.grey,
@@ -168,12 +180,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   IconButton(
                                     icon: Icon(
-                                      Icons.favorite_border,
-                                      size: 24,
-                                      color: Colors.grey,
+                                      isFavorite
+                                          ? Icons.favorite
+                                          : Icons.favorite_border,
                                     ),
+                                    color: isFavorite ? Colors.red : null,
                                     onPressed: () {
-                                      // Tambahkan logika untuk aksi tombol
+                                      _toggleFavorite(varHome);
                                     },
                                   ),
                                 ],
@@ -183,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         )),
                   );
                 },
-              )
+              ),
             ],
           ),
         ),
