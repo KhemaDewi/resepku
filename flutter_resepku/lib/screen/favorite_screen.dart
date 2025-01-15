@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_resepku/data/home_data.dart';
 import 'package:flutter_resepku/models/home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'detail_screen.dart'; // Import DetailScreen
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});
@@ -36,7 +37,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Favorite Recipes'),
+        title: const Text('My Favorite'),
       ),
       body: ListView.builder(
         itemCount: favoriteItems.length,
@@ -50,15 +51,19 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             ),
             title: Text(varHome.namaMakanan),
             subtitle: Text(varHome.waktu),
-            trailing: IconButton(
-              icon: Icon(
-                Icons.favorite,
-                color: Colors.red,
-              ),
-              onPressed: () {
-                // Tindakan saat ikon love diklik (misalnya menambah ke daftar favorit lagi atau menghapusnya)
-              },
+            trailing: Icon(
+              Icons.favorite,
+              color: Colors.red,
             ),
+            onTap: () {
+              // Navigasi ke DetailScreen
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DetailScreen(varHome: varHome),
+                ),
+              );
+            },
           );
         },
       ),
